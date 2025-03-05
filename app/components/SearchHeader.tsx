@@ -12,11 +12,16 @@ import {
 } from "lucide-react";
 import React, { Suspense } from "react";
 import SearchInput from "./SearchInput";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { searchNavLinks } from "@/constant";
+import { cn } from "../lib/utils";
+import { NavIcon } from "./NavIcon";
 
 const SearchHeader = () => {
+  const pathName = usePathname();
   const searchQuery = useSearchParams().get("q") || "";
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <header className="sticky top-0 bg-white border-b border-gray-200 z-50">
@@ -25,7 +30,7 @@ const SearchHeader = () => {
             href="/"
             className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text flex-shrink-0"
           >
-            Search
+            Web Hunt
           </Link>
 
           <SearchInput query={searchQuery} />
@@ -45,48 +50,24 @@ const SearchHeader = () => {
 
         {/* Search Options */}
         <div className="flex items-center justify-center g-4 md:gap-6 lg:gap-10 px-6 py-2 space-x-6 text-sm border-t border-gray-100 w-full">
-          <Link
-            href={`/search?q=${searchQuery}`}
-            className="flex items-center space-x-1 text-blue-600 border-b-2 border-blue-600 pb-2"
-          >
-            <Search className="w-4 h-4" />
-            <span>All</span>
-          </Link>
-          <Link
-            href={`/search/images?q=${searchQuery}`}
-            className="flex items-center space-x-1 text-gray-600 hover:text-blue-600"
-          >
-            <Image className="w-4 h-4" />
-            <span>Images</span>
-          </Link>
-          <a
-            href="#"
-            className="flex items-center space-x-1 text-gray-600 hover:text-blue-600"
-          >
-            <Video className="w-4 h-4" />
-            <span>Videos</span>
-          </a>
-          <a
-            href="#"
-            className="flex items-center space-x-1 text-gray-600 hover:text-blue-600"
-          >
-            <Newspaper className="w-4 h-4" />
-            <span>News</span>
-          </a>
-          <a
-            href="#"
-            className="flex items-center space-x-1 text-gray-600 hover:text-blue-600"
-          >
-            <Map className="w-4 h-4" />
-            <span>Maps</span>
-          </a>
-          <a
-            href="#"
-            className="flex items-center space-x-1 text-gray-600 hover:text-blue-600"
-          >
-            <MoreHorizontal className="w-4 h-4" />
-            <span>More</span>
-          </a>
+          {searchNavLinks.map((navLink) => {
+            const isActive = pathName === navLink.href;
+            return (
+              <Link
+                key={navLink.href}
+                href={`${navLink.href}?q=${searchQuery}`}
+                className={cn(
+                  "flex items-center space-x-1 ",
+                  isActive
+                    ? "text-blue-600 border-b-2 border-blue-600 pb-2"
+                    : "text-gray-600 hover:text-blue-600"
+                )}
+              >
+                <NavIcon type={navLink.type} />
+                <span>{navLink.label}</span>
+              </Link>
+            );
+          })}
         </div>
       </header>
     </Suspense>

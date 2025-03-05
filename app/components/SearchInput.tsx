@@ -1,5 +1,5 @@
 "use client";
-import { Camera, Mic, Search } from "lucide-react";
+import { Camera, Mic, Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 const SearchInput = ({ type, query }: { type?: string; query?: string }) => {
@@ -11,6 +11,10 @@ const SearchInput = ({ type, query }: { type?: string; query?: string }) => {
     if (searchQuery.trim()) {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
+  };
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    router.push("/search");
   };
   return (
     <form onSubmit={handleSearch} className="w-full max-w-2xl">
@@ -28,20 +32,20 @@ const SearchInput = ({ type, query }: { type?: string; query?: string }) => {
         {searchQuery && (
           <button
             type="button"
-            onClick={() => setSearchQuery("")}
+            onClick={handleClearSearch}
             className="absolute right-3 text-2xl text-gray-900 hover:text-gray-600"
           >
-            ×
+            <X />
           </button>
         )}
-        <div className="absolute right-4 flex space-x-2">
+        {/* <div className="absolute right-4 flex space-x-2">
           <button type="button" className="p-2 hover:bg-gray-100 rounded-full">
             <Mic className="w-5 h-5 text-blue-500" />
           </button>
           <button type="button" className="p-2 hover:bg-gray-100 rounded-full">
             <Camera className="w-5 h-5 text-blue-500" />
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Search Buttons */}

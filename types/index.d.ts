@@ -1,5 +1,10 @@
 // Type definitions for search result data
-
+interface NavLink {
+  type: string;
+  href: string;
+  Icon?: React.ComponentType<any>; // Optional since we'll handle it in the helper
+  label: string;
+}
 interface MetaUrl {
   scheme: string;
   netloc: string;
@@ -45,4 +50,51 @@ interface SearchResult {
 // For the component props
 interface ShowSearchResultProps {
   result: SearchResult;
+}
+
+interface BraveImageSearchResponse {
+  type: string;
+  query: {
+    original: string;
+    altered: string;
+    spellcheck_off: boolean;
+    show_strict_warning: boolean;
+  };
+  results: BraveImageResult[];
+  extra: {
+    might_be_offensive: boolean;
+  };
+}
+
+interface BraveImageResult {
+  type: string;
+  title: string;
+  url: string;
+  source: string;
+  page_fetched: string;
+  thumbnail: {
+    src: string;
+  };
+  properties: {
+    url: string;
+    placeholder: string;
+  };
+  meta_url: {
+    scheme: string;
+    netloc: string;
+    hostname: string;
+    favicon: string;
+    path: string;
+  };
+  confidence: string;
+}
+
+interface ImageResult {
+  id: string;
+  title: string;
+  url: string;
+  source: string;
+  thumbnail: string;
+  sourceUrl: string;
+  sourceFavicon: string;
 }

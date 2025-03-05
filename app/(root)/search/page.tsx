@@ -7,6 +7,8 @@ import { SearchParams } from "next/dist/server/request/search-params";
 import { searchBrave } from "@/app/lib/search.action";
 import WifiLoader from "@/app/components/SearchLoader";
 import ShowSearchResult from "@/app/components/ShowSearchResult";
+import { Search } from "lucide-react";
+import NoResultsFound from "@/app/components/NoResultFound";
 
 export default async function SearchResults({
   searchParams,
@@ -15,10 +17,10 @@ export default async function SearchResults({
 }) {
   const searchQuery = ((await searchParams)?.q as string) || "";
   const currentPage = Number((await searchParams)?.page) || 1;
+
   const searchResut = await searchBrave(searchQuery, currentPage);
 
   const webResult = searchResut?.web?.results;
-  console.log(webResult);
 
   // Mock search results
   const resultsPerPage = 10;
