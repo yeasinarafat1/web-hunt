@@ -98,3 +98,4 @@ interface ImageResult {
   sourceUrl: string;
   sourceFavicon: string;
 }
+export type BraveSearchSuggestResponse = [string, string[]];
