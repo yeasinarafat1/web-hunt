@@ -21,7 +21,7 @@ const SearchHeader = () => {
           href="/"
           className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text flex-shrink-0"
         >
-          Web Hunt
+          QueryZen
         </Link>
 
         <SearchInput query={searchQuery} />
