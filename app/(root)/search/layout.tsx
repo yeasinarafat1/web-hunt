@@ -1,12 +1,14 @@
 import SearchHeader from "@/app/components/SearchHeader";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="min-h-screen bg-white">
-      <SearchHeader />
-      {children}
-    </main>
+    <Suspense fallback={<div>Loading...</div>}>
+      <main className="min-h-screen bg-white">
+        <SearchHeader />
+        {children}
+      </main>
+    </Suspense>
   );
 };
 

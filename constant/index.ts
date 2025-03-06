@@ -1,3 +1,8 @@
+interface NavLink {
+  type: string;
+  href: string;
+  label: string;
+}
 export const searchNavLinks: NavLink[] = [
   {
     type: "all",
